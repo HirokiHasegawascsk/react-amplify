@@ -7,11 +7,10 @@ Amplify.configure({
     userPoolId: 'ap-northeast-1_ZJWTVR2jR',
     userPoolWebClientId: '66r6ip7ep0f78f5kc85evv6mqq',
     oauth: {
-      domain: 'https://hasegawa.auth.ap-northeast-1.amazoncognito.com',
-      scope: ['openid'],
-      redirectSignIn: 'sre-train-dev-alb-811314457.ap-northeast-1.elb.amazonaws.com/',
-      redirectSignOut: 'sre-train-dev-alb-811314457.ap-northeast-1.elb.amazonaws.com/',
-      responseType: 'code'
+      domain: 'hasegawa.auth.ap-northeast-1.amazoncognito.com',
+      redirectSignIn: 'https://sre-train-dev-alb-421312269.ap-northeast-1.elb.amazonaws.com/',
+      redirectSignOut: 'https://sre-train-dev-alb-421312269.ap-northeast-1.elb.amazonaws.com/',
+      responseType: 'token'
     }
   }
 })
