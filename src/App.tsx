@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {Amplify, Auth, Hub } from 'aws-amplify';
+import getCurrentTransaction from '@elastic/apm-rum';
 
 Amplify.configure({
   Auth: {
@@ -17,6 +18,15 @@ Amplify.configure({
 
 function App() {
   const [user, setUser] = useState<any | null>(null);
+  
+  Auth.currentAuthenticatedUser().then(user => {
+    const transaction = getCurrentTransaction();
+    transaction.setUserContext({
+       id: user.username,
+       email: user.attributes.email,
+       // 他のユーザー情報を追加する
+    });
+ });
 
   useEffect(() => {
     Hub.listen('auth', ({ payload: { event, data } }) => {
