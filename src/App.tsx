@@ -39,6 +39,7 @@ function App() {
           getUser().then(userData => setUser(userData));
           var apm = require('@elastic/apm-rum').init();
           apm.setUserContext(user.username);
+          apm.addLabels({ [ 'username']: user.username });
           break;
         case 'signOut':
           setUser(null);
