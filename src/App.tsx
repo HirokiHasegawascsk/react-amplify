@@ -28,12 +28,7 @@ function App() {
 //        // 他のユーザー情報を追加する
 //     });
 //  });
-  const apm = require('elastic-apm-node').start();
-
-  apm.setTag('username', user.username);
-  apm.addTags({
-    ['username']: user.username,
-  });
+ // apm.addLabels({ [ user.username]: user.username });
 
 
   useEffect(() => {
@@ -42,6 +37,8 @@ function App() {
         case 'signIn':
         case 'cognitoHostedUI':
           getUser().then(userData => setUser(userData));
+          var apm = require('@elastic/apm-rum').init();
+          apm.setUserContext(user.username);
           break;
         case 'signOut':
           setUser(null);
