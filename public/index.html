@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://unpkg.com/@elastic/apm-rum@5.12.0/dist/bundles/elastic-apm-rum.umd.min.js" crossorigin></script>
+      <script>
+        elasticApm.init({
+          serviceName: 'react-app',
+          serverUrl: 'https://19bcff45175e4fbaab61293e5749a606.apm.ap-northeast-1.aws.cloud.es.io:443',
+        })        
+    </script>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
