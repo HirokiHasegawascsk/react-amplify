@@ -40,6 +40,10 @@ function App() {
           var apm = require('@elastic/apm-rum').init();
           apm.setUserContext(user.username);
           apm.addLabels({ [ 'username']: user.username });
+          const transaction = apm.startTransaction('username', 'custom' )
+          const span = transaction.startSpan('My custom span');
+          span.addLabels({ ['username']: user.username })
+
           break;
         case 'signOut':
           setUser(null);
