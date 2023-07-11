@@ -42,6 +42,7 @@ function App() {
           apm.addLabels({ [ 'username']: user.username });
           const transaction = apm.startTransaction('username', 'custom' )
           const span = transaction.startSpan('My custom span');
+          transaction.addLabels({ ['username']: user.username });
           span.addLabels({ ['username']: user.username })
 
           break;
