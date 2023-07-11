@@ -23,7 +23,6 @@ function App() {
     const transaction = getCurrentTransaction();
     transaction.setUserContext({
        id: user.username,
-       email: user.attributes.email,
        // 他のユーザー情報を追加する
     });
  });
