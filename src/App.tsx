@@ -42,7 +42,7 @@ function App() {
           const transaction = apm.startTransaction('username', 'custom' )
           const span = transaction.startSpan('My custom span');
           transaction.addLabels({ ['username']: user.username });
-          span.addLabels({ ['username']: user.username })
+          span.addLabels({ ['username']: user.username });
 
           break;
         case 'signOut':
@@ -68,7 +68,10 @@ function App() {
       var apm = require('@elastic/apm-rum').init();
       apm.setUserContext(userData);
       apm.addLabels({ [ userData]: userData });
-//      const transaction = apm.startTransaction('username', 'custom' )
+      const transaction = apm.startTransaction(userData, 'custom' );
+      const span = transaction.startSpan('My custom span');
+      transaction.addLabels({ [userData]: userData });
+      span.addLabels({ [userData]:userData });
       console.log(userData);
       return userData;
     } catch (e) {
