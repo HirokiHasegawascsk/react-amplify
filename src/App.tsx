@@ -21,16 +21,6 @@ Amplify.configure({
 function App() {
   const [user, setUser] = useState<any | null>(null);
   
-//   Auth.currentAuthenticatedUser().then(user => {
-//     const transaction = getCurrentTransaction();
-//     transaction.setUserContext({
-//       username: user.username,
-//        // 他のユーザー情報を追加する
-//     });
-//  });
- // apm.addLabels({ [ user.username]: user.username });
-
-  
   useEffect(() => {
     Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
@@ -58,32 +48,8 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
-      //var apm = require('@elastic/apm-rum').init();
-      var apm = initApm({
-
-        // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-        serviceName: 'my-service-name',
-
-        // Set custom APM Server URL (default: http://localhost:8200)
-        serverUrl: 'https://19bcff45175e4fbaab61293e5749a606.apm.ap-northeast-1.aws.cloud.es.io:443',
-
-        // Set the service version (required for source map feature)
-        serviceVersion: '',
-
-        // Set the service environment
-        environment: 'my-environment'
-      })
+      var apm = require('@elastic/apm-rum').init();
       apm.setUserContext(userData);
-      apm.addLabels({ [ userData]: userData });
-      // const transaction = getCurrentTransaction();
-      // transaction.setUserContext({
-      //   email: userData,
-      //   // 他のユーザーデータを設定する
-      // });
-//      const transaction = apm.startTransaction(userData, 'custom' );
-//      const span = apm.startSpan(userData, userData);
-//      transaction.addLabels({ [userData]: userData });
-//      span.addLabels({ [userData]:userData });
       console.log(userData);
       return userData;
     } catch (e) {
@@ -94,7 +60,7 @@ function App() {
   return user ? (
     <div>
       <p>サインイン済み</p>
-      <p>ユーザー名: {user.username}</p>
+      <p>ユーザー名: {user.id}</p>
       <button onClick={() => Auth.signOut()}>Sign Out</button>
     </div>
   ) : (
