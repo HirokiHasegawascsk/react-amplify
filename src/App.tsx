@@ -48,8 +48,8 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
-      var apm = require('@elastic/apm-rum').init();
-      apm.setUserContext(userData);
+     // var apm = require('@elastic/apm-rum').init();
+      //apm.setUserContext(userData);
       console.log(userData);
       return userData;
     } catch (e) {
@@ -60,7 +60,7 @@ function App() {
   return user ? (
     <div>
       <p>サインイン済み</p>
-      <p>ユーザー名: {user.id}</p>
+      <p>ユーザー名: {user.username}</p>
       <button onClick={() => Auth.signOut()}>Sign Out</button>
     </div>
   ) : (
