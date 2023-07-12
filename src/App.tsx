@@ -65,6 +65,10 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
+      var apm = require('@elastic/apm-rum').init();
+      apm.setUserContext(userData);
+//      apm.addLabels({ [ 'username']: user.username });
+//      const transaction = apm.startTransaction('username', 'custom' )
       console.log(userData);
       return userData;
     } catch (e) {
