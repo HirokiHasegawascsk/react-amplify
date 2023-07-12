@@ -67,7 +67,7 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
         var apm = require('@elastic/apm-rum').init();
-        apm.setUserContext(user.username);
+//        apm.setUserContext(user.username);
         apm.addLabels({ [ 'username']: user.username });
         const transaction = apm.startTransaction('username', 'custom' )
         const span = transaction.startSpan('My custom span');
