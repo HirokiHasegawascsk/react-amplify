@@ -59,22 +59,22 @@ function App() {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
 //      var apm = require('@elastic/apm-rum').init();
-      var apm = initApm({
+      // var apm = initApm({
 
-        // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-        serviceName: 'my-service-name',
+      //   // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+      //   serviceName: 'my-service-name',
 
-        // Set custom APM Server URL (default: http://localhost:8200)
-        serverUrl: 'https://19bcff45175e4fbaab61293e5749a606.apm.ap-northeast-1.aws.cloud.es.io:443',
+      //   // Set custom APM Server URL (default: http://localhost:8200)
+      //   serverUrl: 'https://19bcff45175e4fbaab61293e5749a606.apm.ap-northeast-1.aws.cloud.es.io:443',
 
-        // Set the service version (required for source map feature)
-        serviceVersion: '',
+      //   // Set the service version (required for source map feature)
+      //   serviceVersion: '',
 
-        // Set the service environment
-        environment: 'my-environment'
-      })
-      apm.setUserContext(userData);
-      apm.addLabels({ [ userData]: userData });
+      //   // Set the service environment
+      //   environment: 'my-environment'
+      // })
+      // apm.setUserContext(userData);
+      // apm.addLabels({ [ userData]: userData });
       const transaction = getCurrentTransaction();
       transaction.setUserContext({
         email: userData,
