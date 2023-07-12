@@ -1,7 +1,22 @@
 import { useEffect, useState } from 'react';
 import {Amplify, Auth, Hub } from 'aws-amplify';
 import getCurrentTransaction from '@elastic/apm-rum';
-import apm from '@elastic/apm-rum';
+import { init as initApm } from '@elastic/apm-rum'
+var apm = initApm({
+
+  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+  serviceName: 'my-service-name',
+
+  // Set custom APM Server URL (default: http://localhost:8200)
+  serverUrl: 'https://19bcff45175e4fbaab61293e5749a606.apm.ap-northeast-1.aws.cloud.es.io:443',
+
+  // Set the service version (required for source map feature)
+  serviceVersion: '',
+
+  // Set the service environment
+  environment: 'my-environment'
+})
+
 
 Amplify.configure({
   Auth: {
@@ -65,13 +80,13 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
-      var apm = require('@elastic/apm-rum').init();
+//      var apm = require('@elastic/apm-rum').init();
       apm.setUserContext(userData);
       apm.addLabels({ [ userData]: userData });
       const transaction = apm.startTransaction(userData, 'custom' );
-      const span = transaction.startSpan('My custom span');
-      transaction.addLabels({ [userData]: userData });
-      span.addLabels({ [userData]:userData });
+//      const span = transaction.startSpan('My custom span');
+//      transaction.addLabels({ [userData]: userData });
+//      span.addLabels({ [userData]:userData });
       console.log(userData);
       return userData;
     } catch (e) {
