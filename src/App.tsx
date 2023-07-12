@@ -3,7 +3,6 @@ import {Amplify, Auth, Hub } from 'aws-amplify';
 import getCurrentTransaction from '@elastic/apm-rum';
 import apm from '@elastic/apm-rum';
 
-
 Amplify.configure({
   Auth: {
     region: 'ap-northeast-1',
@@ -37,7 +36,6 @@ function App() {
         case 'signIn':
         case 'cognitoHostedUI':
           getUser().then(userData => setUser(userData));
-
           var apm = require('@elastic/apm-rum').init();
           apm.setUserContext(user.username);
           apm.addLabels({ [ 'username']: user.username });
@@ -66,13 +64,6 @@ function App() {
       // デバッグ用
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
-        var apm = require('@elastic/apm-rum').init();
-//        apm.setUserContext(user.username);
-        apm.addLabels({ [ 'username']: user.username });
-        const transaction = apm.startTransaction('username', 'custom' )
-        const span = transaction.startSpan('My custom span');
-        transaction.addLabels({ ['username']: user.username });
-        span.addLabels({ ['username']: user.username })
       });
       console.log(userData);
       return userData;
