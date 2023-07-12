@@ -48,8 +48,8 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
-     // var apm = require('@elastic/apm-rum').init();
-      //apm.setUserContext(userData);
+      var apm = require('@elastic/apm-rum').init();
+      apm.setUserContext(userData);
       console.log(userData);
       return userData;
     } catch (e) {
