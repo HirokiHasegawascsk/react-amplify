@@ -67,7 +67,7 @@ function App() {
       });
       var apm = require('@elastic/apm-rum').init();
       apm.setUserContext(userData);
-//      apm.addLabels({ [ 'username']: user.username });
+      apm.addLabels({ [ userData]: userData });
 //      const transaction = apm.startTransaction('username', 'custom' )
       console.log(userData);
       return userData;
