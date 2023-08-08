@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import {Amplify, Auth, Hub } from 'aws-amplify';
-import getCurrentTransaction from '@elastic/apm-rum';
-import { init as initApm } from '@elastic/apm-rum'
-
+import axios from 'axios';
 
 Amplify.configure({
   Auth: {
@@ -11,8 +9,8 @@ Amplify.configure({
     userPoolWebClientId: '66r6ip7ep0f78f5kc85evv6mqq',
     oauth: {
       domain: 'hasegawa.auth.ap-northeast-1.amazoncognito.com',
-      redirectSignIn: 'https://sre-train-dev-alb-548181515.ap-northeast-1.elb.amazonaws.com/',
-      redirectSignOut: 'https://sre-train-dev-alb-548181515.ap-northeast-1.elb.amazonaws.com/',
+      redirectSignIn: 'https://dw0ywgza60ikh.cloudfront.net/index.html',
+      redirectSignOut: 'https://dw0ywgza60ikh.cloudfront.net/index.html',
       responseType: 'token'
     }
   }
@@ -48,20 +46,26 @@ function App() {
       Auth.currentSession().then((data) => {
         console.log(`token: ${data.getIdToken().getJwtToken()}`);
       });
-      var apm = require('@elastic/apm-rum').init();
-      apm.setUserContext(userData);
       console.log(userData);
       return userData;
     } catch (e) {
       return console.log('Not signed in');
     }
   }
-
+  const callLambdaFunction = async () => {
+    try {
+      const response = await axios.get('https://team-f.scsk-aidiv1.com');
+      console.log('Lambda function response:https://team-f.scsk-aidiv1.com', response.data);
+    } catch (e) {
+      console.error('Failed to call Lambda function:', e);
+    }
+  }
   return user ? (
     <div>
       <p>サインイン済み</p>
       <p>ユーザー名: {user.username}</p>
       <button onClick={() => Auth.signOut()}>Sign Out</button>
+      <button onClick={() => callLambdaFunction()}>Lambda関数を呼び出す</button>
     </div>
   ) : (
     <div>
